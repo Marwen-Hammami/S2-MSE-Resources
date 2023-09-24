@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
     res.status(200).json({message: 'Hello World!'});
 })
 
-app.get('/game/:name', (req, res) => {
-    res.status(200).json({message: `The name of the game is ${req.params.name}`});
-})
+// app.get('/game/:name', (req, res) => {
+//     res.status(200).json({message: `The name of the game is ${req.params.name}`});
+// })
 
 app.get('/entity', (req, res) => {
     const game = new Game("GTA6", 2025);
@@ -49,6 +49,21 @@ app.get('/game/select/:year', (req, res) => {
 })
 
 //3
+app.get('/game/:name', (req, res) => {
+    var tabGames = getListGames()
+    let name = req.params.name
+    var found = false
+
+    for (let i = 0; i < tabGames.length; i++) {
+        if (tabGames[i]["Game"] == name) {
+            found = true
+            var link = tabGames[i]["GameLink"];
+            res.redirect(301, link);
+        }
+    }
+    if(!found)
+        res.status(404).setHeader('Content-Type', 'text/plain').end("Game not found");
+})
 
 //Fin EX6 ***************************************
 
