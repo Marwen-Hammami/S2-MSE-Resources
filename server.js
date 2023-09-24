@@ -38,7 +38,15 @@ app.get('/game', (req, res) => {
 
     res.status(200).json(tabGames);
 })
+
 //2
+app.get('/game/select/:year', (req, res) => {
+    var tabGames = getListGames()
+    let year = req.params.year
+
+    var filteredList = tabGames.filter((game) => game["Year"] > year);
+    res.status(200).json(filteredList);
+})
 
 //3
 
